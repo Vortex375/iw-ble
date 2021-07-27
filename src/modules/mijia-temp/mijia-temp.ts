@@ -39,7 +39,7 @@ export class MijiaTemp extends Service {
 
   async start(config: MijiaTempConfig) {
     this.macAddress = config.macAddress;
-    this.interval = (config.interval * 1000) ?? 300000; /* 5m default */
+    this.interval = (config.interval ?? 300) * 1000; /* 5m default */
     this.gatttool = config.gatttool ?? '/usr/bin/gatttool';
     this.record = this.ds.getRecord(config.recordName);
     this.timer = setInterval(() => this.update(), this.interval);
