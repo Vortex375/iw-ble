@@ -81,13 +81,14 @@ export class MijiaTemp extends Service {
       this.setState(State.ERROR, 'unable to launch gatttool process');
     });
     this.gattProcess.on('exit', (code) => {
-      log.debug('gatttool finished with code %d', code);
+      log.debug({ code }, 'gatttool finished with code %d', code);
       input.close();
       this.gattProcess = undefined;
       if (code === 0 || code === 130) {
         this.retryCounter = 0;
         this.setState(State.OK);
       } else {
+        log.debug('gatttool failed, scheduling retry ...');
         this.retryCounter++;
         // setTimeout(() => this.update(), RETRY_TIMEOUT);
       }
