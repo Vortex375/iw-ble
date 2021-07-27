@@ -61,6 +61,7 @@ export class MijiaTemp extends Service {
       this.setState(State.BUSY, 'updating values ...');
     } else if (this.retryCounter >= MAX_RETRY) {
       this.setState(State.PROBLEM, 'unable to connect to device');
+      this.retryCounter = 0;
       return;
     } else {
       this.setState(State.BUSY, `updating values (retry ${this.retryCounter}) ...`);
@@ -83,7 +84,7 @@ export class MijiaTemp extends Service {
       log.error('gatttool finished with code %d', code);
       input.close();
       this.gattProcess = undefined;
-      if (code === 0) {
+      if (code === 0 || code === 130) {
         this.retryCounter = 0;
         this.setState(State.OK);
       } else {
