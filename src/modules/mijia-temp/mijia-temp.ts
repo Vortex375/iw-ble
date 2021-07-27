@@ -50,7 +50,9 @@ export class MijiaTemp extends Service {
   async stop() {
     clearInterval(this.timer);
     this.closeChildProcess();
-    this.record.discard();
+    if (this.record) {
+      this.record.discard();
+    }
     this.setState(State.INACTIVE);
   }
 
@@ -63,7 +65,7 @@ export class MijiaTemp extends Service {
     } else {
       this.setState(State.BUSY, `updating values (retry ${this.retryCounter}) ...`);
     }
-    const argv = ['--char-write-req', '-a', '0x0038', '-n', '0100', '--listen'];
+    const argv = ['--char-write-req', '-b', this.macAddress, '-a', '0x0038', '-n', '0100', '--listen'];
     log.debug('Running: %s %j', this.gatttool, argv);
     this.gattProcess = spawn(this.gatttool, argv, {
       stdio: ['ignore', 'pipe', 'ignore']
