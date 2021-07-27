@@ -16,3 +16,15 @@ modules:
     config:
       recordName: climate-sensor/Wohnzimmer
       macAddress: "A4:C1:38:A4:15:94"
+
+  - component: mijia-temp
+    name: Temperatur Küche
+    config:
+      recordName: climate-sensor/Kueche
+      macAddress: "A4:C1:38:86:A8:F4"
+
+  - component: mijia-temp
+    name: Temperatur Schlafzimmer
+    config:
+      recordName: climate-sensor/Schlafzimmer
+      macAddress: "A4:C1:38:4B:37:9E"
