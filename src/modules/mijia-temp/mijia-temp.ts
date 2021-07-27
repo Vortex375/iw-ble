@@ -84,13 +84,13 @@ export class MijiaTemp extends Service {
       log.debug({ code }, 'gatttool finished with code %d', code);
       input.close();
       this.gattProcess = undefined;
-      if (code === 0 || code === 130) {
+      if (code === null || code === 0 || code === 130) {
         this.retryCounter = 0;
         this.setState(State.OK);
       } else {
         log.debug('gatttool failed, scheduling retry ...');
         this.retryCounter++;
-        // setTimeout(() => this.update(), RETRY_TIMEOUT);
+        setTimeout(() => this.update(), RETRY_TIMEOUT);
       }
     });
 
