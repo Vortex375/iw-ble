@@ -98,7 +98,7 @@ export class MijiaTemp extends Service {
         lineCounter++;
         return;
       }
-      const values = line.substring(line.indexOf('value:') + 6).split(' ');
+      const values = line.substring(line.indexOf('value:') + 6).trim().split(' ');
       const temp = +`0x${values[1]}${values[0]}` / 100;
       const humid = +`0x${values[2]}`;
       log.debug({ humid, temp }, 'got values');
