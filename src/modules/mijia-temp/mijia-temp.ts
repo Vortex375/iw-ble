@@ -42,7 +42,7 @@ export class MijiaTemp extends Service {
     this.interval = (config.interval * 1000) ?? 300000; /* 5m default */
     this.gatttool = config.gatttool ?? '/usr/bin/gatttool';
     this.record = this.ds.getRecord(config.recordName);
-    this.timer = setInterval(() => this.update, this.interval);
+    this.timer = setInterval(() => this.update(), this.interval);
     this.setState(State.OK);
     this.update();
   }
@@ -80,6 +80,7 @@ export class MijiaTemp extends Service {
       this.setState(State.ERROR, 'unable to launch gatttool process');
     });
     this.gattProcess.on('exit', (code) => {
+      log.error('gatttool finished with code %d', code);
       input.close();
       this.gattProcess = undefined;
       if (code === 0) {
@@ -87,7 +88,7 @@ export class MijiaTemp extends Service {
         this.setState(State.OK);
       } else {
         this.retryCounter++;
-        setTimeout(() => this.update, RETRY_TIMEOUT);
+        setTimeout(() => this.update(), RETRY_TIMEOUT);
       }
     });
 
