@@ -1,0 +1,18 @@
+load:
+  - iw-base/modules/udp-discovery
+  - ./modules/mijia-temp
+
+modules:
+  - component: udp-discovery
+    priority: -1
+    await: connected
+    config:
+      clientConfig:
+        friendlyName: mijia-temp
+      requestPort: 6031
+
+  - component: mijia-temp
+    name: Temperatur Wohnzimmer
+    config:
+      recordName: climate-sensor/Wohnzimmer
+      macAddress: "A4:C1:38:A4:15:94"
