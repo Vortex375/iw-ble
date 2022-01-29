@@ -16,7 +16,7 @@
     "tslint": "tslint -c tslint.json -p tsconfig.json"
   },
   "dependencies": {
-    "@deepstream/client": "^5.2.5",
+    "@deepstream/client": "^5.2.6",
     "@deepstream/types": "^2.2.0",
     "iw-base": "^0.0.1",
     "iw-ioc": "^0.0.1",
@@ -25,6 +25,6 @@
   "devDependencies": {
     "@types/lodash": "^4.14.161",
     "rimraf": "^3.0.2",
-    "typescript": "^4.0.3"
+    "typescript": "^4.5.5"
   }
 }
